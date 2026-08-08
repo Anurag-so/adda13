@@ -13,22 +13,7 @@ export const MobileNav = () => {
   } = useApp();
 
   return (
-    <nav style={{
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      height: '65px',
-      backgroundColor: 'var(--bg-card)',
-      borderTop: '1px solid var(--border-light)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      zIndex: 999,
-      padding: '0 8px',
-      backdropFilter: 'blur(12px)',
-      boxShadow: '0 -4px 20px rgba(0,0,0,0.4)'
-    }} className="mobile-only">
+    <nav className="mobile-bottom-nav">
       
       {/* Casino Games button */}
       <button

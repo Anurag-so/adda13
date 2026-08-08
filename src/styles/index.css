@@ -1,6 +1,9 @@
-/* Stake Pro Dark Design System & Mobile Responsive Styles */
+/* Modern Stake.com UI Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
 :root {
   --bg-dark: #0f212e;
+  --bg-darker: #07141e;
   --bg-card: #1a2c38;
   --bg-card-hover: #213743;
   --bg-input: #0f212e;
@@ -24,13 +27,13 @@
   --border-light: rgba(255, 255, 255, 0.08);
   --border-green: rgba(0, 231, 1, 0.3);
   
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
   --radius-xl: 24px;
   
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
   --shadow-neon: 0 0 20px rgba(0, 231, 1, 0.4);
@@ -49,6 +52,7 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom Scrollbars */
@@ -71,38 +75,99 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* Common Layout */
+/* Base Layout */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 70px; /* Space for Mobile Bottom Nav */
 }
 
-@media (min-width: 769px) {
-  .app-container {
-    padding-bottom: 0;
-  }
-}
-
-.main-content {
+.main-layout {
   display: flex;
   flex: 1;
-  position: relative;
+  width: 100%;
 }
 
 .page-wrapper {
   flex: 1;
   padding: 24px;
-  max-width: 1400px;
+  max-width: 1350px;
   margin: 0 auto;
   width: 100%;
 }
 
+/* Desktop Sidebar */
+.desktop-sidebar {
+  width: 240px;
+  background-color: var(--bg-darker);
+  border-right: 1px solid var(--border-light);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: calc(100vh - 64px);
+  position: sticky;
+  top: 64px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* Mobile Category Filter Scroll Pills */
+.mobile-category-chips {
+  display: none;
+}
+
+/* Mobile Bottom Navigation Bar */
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* Responsive Visibility via Media Queries ONLY */
+@media (max-width: 768px) {
+  .desktop-sidebar {
+    display: none !important;
+  }
+
+  .mobile-category-chips {
+    display: flex !important;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 12px 14px 4px 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobile-category-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 62px;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-light);
+    align-items: center;
+    justify-content: space-around;
+    z-index: 999;
+    padding: 0 8px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+  }
+
+  .app-container {
+    padding-bottom: 65px;
+  }
+
+  .page-wrapper {
+    padding: 14px;
+  }
+}
+
 /* Glassmorphism Cards */
 .glass-panel {
-  background: rgba(26, 44, 56, 0.85);
-  backdrop-filter: blur(12px);
+  background: var(--bg-card);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
@@ -149,6 +214,9 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--bg-accent);
   color: var(--text-main);
 }
+.btn-secondary:hover {
+  background: #3d5869;
+}
 
 .btn-gold {
   background: linear-gradient(135deg, #ffc700 0%, #e6a100 100%);
@@ -160,6 +228,10 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
   border: 1px solid var(--bg-accent);
   color: var(--text-muted);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
 }
 
 .btn-danger {
@@ -185,8 +257,8 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -281,34 +353,32 @@ h1, h2, h3, h4, h5, h6 {
 /* Grid Utilities */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .game-layout-grid { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
 
 /* Responsive Media Queries */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .grid-4 { grid-template-columns: repeat(3, 1fr); }
-  .game-layout-grid { grid-template-columns: 280px 1fr; }
 }
 
-@media (max-width: 768px) {
-  .page-wrapper { padding: 14px; }
+@media (max-width: 900px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
-  .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .grid-2 { grid-template-columns: repeat(1, 1fr); }
-  
-  .game-layout-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-  
-  .mobile-hide { display: none !important; }
-  .mobile-only { display: flex !important; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .game-layout-grid { grid-template-columns: 1fr; gap: 16px; }
 }
 
-@media (max-width: 480px) {
-  .grid-3 { grid-template-columns: repeat(1, 1fr); }
-  .grid-4 { grid-template-columns: repeat(1, 1fr); }
+@media (max-width: 600px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-2 { grid-template-columns: repeat(1, 1fr); }
   .btn-lg { padding: 12px 18px; font-size: 0.95rem; }
 }
 
-.mobile-only { display: none; }
+/* Visibility Helper Classes */
+@media (max-width: 768px) {
+  .mobile-hide { display: none !important; }
+}
+
+@media (min-width: 769px) {
+  .desktop-hide { display: none !important; }
+}

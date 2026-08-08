@@ -65,7 +65,7 @@ export function AppContent() {
       <Navbar />
 
       {/* Main Body */}
-      <div className="main-content">
+      <div className="main-layout">
         
         {activeView === 'dashboard' && (
           <>
@@ -99,7 +99,7 @@ export function AppContent() {
 
       </div>
 
-      {/* Sticky Mobile Bottom Navigation */}
+      {/* Mobile Bottom Navigation (Visible ONLY on mobile screens via CSS) */}
       <MobileNav />
 
       {/* Modals */}

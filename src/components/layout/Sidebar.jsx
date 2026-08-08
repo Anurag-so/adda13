@@ -22,22 +22,10 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside style={{
-        width: '240px',
-        backgroundColor: 'var(--bg-dark)',
-        borderRight: '1px solid var(--border-light)',
-        padding: '20px 16px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        height: 'calc(100vh - 64px)',
-        position: 'sticky',
-        top: '64px',
-        overflowY: 'auto'
-      }} className="mobile-hide">
+      {/* Desktop Left Sidebar (Hidden on mobile via CSS class .desktop-sidebar) */}
+      <aside className="desktop-sidebar">
         
-        {/* Categories */}
+        {/* Category List */}
         <div>
           <div style={{ 
             fontSize: '0.75rem', 
@@ -50,7 +38,7 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
           }}>
             Game Categories
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {categories.map((cat) => {
               const Icon = cat.icon;
               const isActive = activeCategory === cat.id;
@@ -70,11 +58,23 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
                     fontSize: '0.9rem',
                     fontWeight: isActive ? '700' : '500',
                     cursor: 'pointer',
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    transition: 'all 0.2s ease',
+                    position: 'relative'
                   }}
                 >
                   <Icon size={18} color={isActive ? 'var(--primary-green)' : 'var(--text-muted)'} />
                   <span style={{ flex: 1 }}>{cat.label}</span>
+                  {isActive && (
+                    <span style={{
+                      width: '4px',
+                      height: '16px',
+                      borderRadius: '2px',
+                      background: 'var(--primary-green)',
+                      position: 'absolute',
+                      left: '0'
+                    }} />
+                  )}
                 </button>
               );
             })}
@@ -83,10 +83,11 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
 
         {/* WhatsApp Help Banner */}
         <div style={{
-          background: 'linear-gradient(135deg, rgba(37, 211, 102, 0.15) 0%, rgba(18, 140, 126, 0.15) 100%)',
+          background: 'linear-gradient(135deg, rgba(37, 211, 102, 0.12) 0%, rgba(18, 140, 126, 0.12) 100%)',
           border: '1px solid rgba(37, 211, 102, 0.3)',
-          padding: '14px',
-          borderRadius: 'var(--radius-md)'
+          padding: '16px',
+          borderRadius: 'var(--radius-md)',
+          marginTop: 'auto'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
             <MessageSquare size={18} color="#25D366" />
@@ -94,8 +95,8 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
               24/7 WhatsApp Admin
             </span>
           </div>
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '10px' }}>
-            Deposit / Withdraw Help & Payouts
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
+            Instant WhatsApp manual deposits & payouts
           </p>
           <a 
             href="https://wa.me/919876543210?text=Hi%20Admin%2C%20I%20need%20support"
@@ -115,14 +116,8 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
 
       </aside>
 
-      {/* Mobile Scrollable Categories Chip Filter Bar */}
-      <div style={{
-        display: 'flex',
-        gap: '8px',
-        overflowX: 'auto',
-        padding: '12px 14px 4px 14px',
-        WebkitOverflowScrolling: 'touch'
-      }} className="mobile-only">
+      {/* Mobile Horizontal Category Pills Filter Bar (Appears ONLY on screen <= 768px via CSS) */}
+      <div className="mobile-category-chips">
         {categories.map((cat) => {
           const Icon = cat.icon;
           const isActive = activeCategory === cat.id;
@@ -134,7 +129,7 @@ export const Sidebar = ({ activeCategory, setActiveCategory }) => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '8px 14px',
+                padding: '8px 16px',
                 borderRadius: '20px',
                 border: isActive ? '1px solid var(--primary-green)' : '1px solid var(--bg-accent)',
                 background: isActive ? 'rgba(0, 231, 1, 0.15)' : 'var(--bg-card)',
