@@ -3,6 +3,7 @@ import { useApp } from './context/AppContext';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { MobileNav } from './components/layout/MobileNav';
+import { MobileCategoryBar } from './components/layout/MobileCategoryBar';
 import { HeroBanner } from './components/dashboard/HeroBanner';
 import { GameGrid } from './components/dashboard/GameGrid';
 import { DepositModal } from './components/dashboard/DepositModal';
@@ -71,6 +72,7 @@ export function AppContent() {
           <>
             <Sidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
             <main className="page-wrapper">
+              <MobileCategoryBar activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
               <HeroBanner onQuickPlay={() => handleSelectGame('mines')} />
               <GameGrid activeCategory={activeCategory} onSelectGame={handleSelectGame} />
             </main>
