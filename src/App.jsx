@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from './context/AppContext';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
+import { MobileNav } from './components/layout/MobileNav';
 import { HeroBanner } from './components/dashboard/HeroBanner';
 import { GameGrid } from './components/dashboard/GameGrid';
 import { DepositModal } from './components/dashboard/DepositModal';
@@ -11,7 +12,7 @@ import { MinesGame } from './components/games/MinesGame';
 import { DiceGame } from './components/games/DiceGame';
 import { WheelGame } from './components/games/WheelGame';
 import { AdminDashboard } from './components/admin/AdminDashboard';
-import { Sparkles, AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 
 export function AppContent() {
   const { 
@@ -33,38 +34,39 @@ export function AppContent() {
 
   return (
     <div className="app-container">
-      {/* Toast Notification Alert */}
+      {/* Toast Alert */}
       {toast && (
         <div style={{
           position: 'fixed',
-          top: '84px',
-          right: '24px',
+          top: '72px',
+          right: '14px',
+          left: '14px',
+          maxWidth: '400px',
+          marginLeft: 'auto',
           zIndex: 9999,
           background: toast.type === 'error' ? 'var(--accent-red)' : 'linear-gradient(135deg, #00e701 0%, #00a801 100%)',
           color: toast.type === 'error' ? '#fff' : '#0f212e',
-          padding: '12px 20px',
+          padding: '10px 16px',
           borderRadius: 'var(--radius-md)',
           boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
+          gap: '8px',
           fontFamily: 'var(--font-heading)',
           fontWeight: '800',
-          fontSize: '0.95rem',
-          animation: 'slideUp 0.3s ease'
+          fontSize: '0.85rem'
         }}>
-          {toast.type === 'error' ? <AlertCircle size={20} /> : <CheckCircle size={20} />}
+          {toast.type === 'error' ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
           {toast.message}
         </div>
       )}
 
-      {/* Main Navbar */}
+      {/* Main Top Navbar */}
       <Navbar />
 
-      {/* Page Body */}
+      {/* Main Body */}
       <div className="main-content">
         
-        {/* Render Dashboard View */}
         {activeView === 'dashboard' && (
           <>
             <Sidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
@@ -75,9 +77,8 @@ export function AppContent() {
           </>
         )}
 
-        {/* Render Playable Game View */}
         {activeView === 'game' && (
-          <main className="page-wrapper" style={{ padding: '32px 24px' }}>
+          <main className="page-wrapper">
             {selectedGameId === 'mines' && (
               <MinesGame onBack={() => setActiveView('dashboard')} />
             )}
@@ -90,14 +91,16 @@ export function AppContent() {
           </main>
         )}
 
-        {/* Render Admin Panel View */}
         {activeView === 'admin' && (
-          <main className="page-wrapper" style={{ padding: '32px 24px' }}>
+          <main className="page-wrapper">
             <AdminDashboard />
           </main>
         )}
 
       </div>
+
+      {/* Sticky Mobile Bottom Navigation */}
+      <MobileNav />
 
       {/* Modals */}
       <AuthModal />
